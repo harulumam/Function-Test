@@ -1,0 +1,29 @@
+Menampilkan Reporting Transaksi yang sudah melebihi batas waktu pengiriman ?
+
+SELECT 
+    p.id_pesanan,
+    p.tanggal_pesan,
+    p.due_date_sla,
+    p.status_pengiriman,
+    x.nama_company,
+    a.alamat AS alamat_tujuan,
+    b.nama_barang,
+    dp.jumlah_barang
+FROM 
+    Pesanan p
+JOIN 
+    XYZ_COMPANY x ON p.id_company = x.id_company
+JOIN 
+    Alamat_Tujuan a ON p.id_alamat = a.id_alamat
+JOIN 
+    Detail_Pesanan dp ON p.id_pesanan = dp.id_pesanan
+JOIN 
+    Barang b ON dp.id_barang = b.id_barang
+WHERE 
+    p.due_date_sla < CURRENT_DATE
+    AND p.status_pengiriman != 'Diterima';
+
+
+
+
+
